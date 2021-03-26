@@ -28,7 +28,7 @@ gem 'active_model_serializers'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'active_model_serializers'# 追加
 gem 'devise_token_auth'# 追加
-gem 'device'
+gem 'device' #追加
 
 
 group :development, :test do
