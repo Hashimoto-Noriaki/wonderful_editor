@@ -34,11 +34,10 @@ module WonderfulEditor
 
 
     config.generators do |g|
+      g.template_engine false
       g.javascripts false
       g.stylesheets false
       g.helper false
-      g.template_engine false
-        g.test_framework false
         g.test_framework :rspec,
                           view_specs: false,
                           routing_specs: false,
