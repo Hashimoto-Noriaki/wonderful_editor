@@ -31,6 +31,7 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 
+
 class User < ApplicationRecord
   extend Devise::Models # 追加
   # Include default devise modules. Others available are:
