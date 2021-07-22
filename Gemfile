@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'active_model_serializers'# 追加
 gem 'devise_token_auth'# 追加
-# gem 'device' #追加
+gem 'device' #追加
 
 
 group :development, :test do
@@ -53,7 +53,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'#追加
-  gem 'rails-erd' #追加
+  # gem 'rails-erd' #追加
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
