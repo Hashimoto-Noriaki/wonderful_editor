@@ -25,7 +25,7 @@ gem "jbuilder", "~> 2.7"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb
-gem "active_model_serializers" # 追加
+gem "active_model_serializers",'~> 0.10.0' # 追加
 gem "bootsnap", ">= 1.4.2", require: false
 gem "device" # 追加
 gem "devise_token_auth" # 追加
