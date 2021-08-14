@@ -19,8 +19,8 @@
 #
 FactoryBot.define do
   factory :article do
-    title {Faker::Lorem.words}                  # { "MyString" }
-    body   {Faker::Lorem.sentence}                  # { "MyText" }
-    user 
+    title { Faker::Lorem.words } # { "MyString" }
+    body { Faker::Lorem.sentence }                  # { "MyText" }
+    user
   end
 end
