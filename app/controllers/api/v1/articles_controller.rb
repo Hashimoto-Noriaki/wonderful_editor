@@ -5,16 +5,16 @@ module Api::V1
       render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
     end
 
-    # def show
-    #   article = Article.find_by(id: params[:id])
-    #   render json: { 'article': @article }
-    # end
+    def show
+      articles = Article.find_by(id: params[:id])
+      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
+    end
 
-    # def create
-    #   article = Article.new(article_params)
-    #   article.save
-    #   redirect_to article
-    #   end
+    def create
+      article = Article.new(article_params)
+      article.save!
+      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
+    end
 
     # def updated
     #   article = Article.find(params[:id])
@@ -32,10 +32,11 @@ module Api::V1
     #    end
     #   end
 
-    #   private
-    #   def article_params
-    #       params.require(:article).permit(:title, :text)
-    #   end
+    private
+
+      def article_params
+        params.require(:article).permit(:title, :body)
+      end
   end
 end
 
