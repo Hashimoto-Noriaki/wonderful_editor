@@ -7,13 +7,13 @@ module Api::V1
 
     def show
       articles = Article.find_by(id: params[:id])
-      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
+      render json: articles, serializer: Api::V1::ArticlePreviewSerializer
     end
 
     def create
       article = Article.new(article_params)
       article.save!
-      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
+      render json: articles, serializer: Api::V1::ArticlePreviewSerializer
     end
 
     def updated
