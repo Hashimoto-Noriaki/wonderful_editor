@@ -17,20 +17,15 @@ module Api::V1
     end
 
     def updated
-      article = Article.find(params[:id])
-
+      article = current_user.articles.find(params[:id])
       #   # DBに登録できた場合
       article.update!(article_params)
-      render json: article, each_serializer: Api::V1::ArticlePreviewSerializer
-      #       # 記事ページに遷移する
-      redirect_to article
+      render json: article, serializer: Api::V1::ArticlePreviewSerializer
     end
 
     def destroy
-      article = Article.find(params[:id])
-      if article.user_id == current_user.id
-        article.destroy!
-      end
+      article = current_user.article.find(params[:id])
+      article.destroy!
     end
 
     private
