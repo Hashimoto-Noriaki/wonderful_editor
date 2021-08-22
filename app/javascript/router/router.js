@@ -4,6 +4,7 @@ import ArticleList from "../components/ArticleList.vue";
 
 Vue.use(Router);
 
+
 const router = new Router({
   mode: "history",
   routes: [
