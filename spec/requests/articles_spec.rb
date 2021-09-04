@@ -5,9 +5,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_articles_path) }
 
     let(:article) { create_list(:article, 3) }
-    fit "記事一覧が取得できる" do
+    it "記事一覧が取得できる" do
       subject
-      res = JSON.parse(response.body)
+      # res = JSON.parse(response.body)
       expect(response).to have_http_status(:ok)
     end
   end
@@ -18,7 +18,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
       let(:article) { create(:article) }
       let(:article_id) { article.id }
-      fit "見たい記事詳細を取得できる" do
+      it "見たい記事詳細を取得できる" do
         # expect(response).to have_http_status(200)
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
   context "指定したidの記事が存在しない時" do
     let(:article_id) { 10_000_000_000_000_000_000 }
-    fit "記事が見つからない" do
+    it "記事が見つからない" do
       subject
     end
   end
