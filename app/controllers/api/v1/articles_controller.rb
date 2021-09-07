@@ -11,8 +11,8 @@ module Api::V1
     end
 
     def create
-      article = Article.new(article_params)
-      article.save!
+      article = current_user.articles.create!(article_params)
+       article.save!
       render json: articles, serializer: Api::V1::ArticlePreviewSerializer
     end
 
