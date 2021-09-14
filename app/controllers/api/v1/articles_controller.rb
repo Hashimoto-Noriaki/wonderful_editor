@@ -6,21 +6,21 @@ module Api::V1
     end
 
     def show
-      articles = Article.find_by(id: params[:id])
-      render json: articles, serializer: Api::V1::ArticlePreviewSerializer
+      article = Article.find(params[:id])
+      render json: article, serializer: Api::V1::ArticleSerializer
     end
 
     def create
       article = current_user.articles.create!(article_params)
-       article.save!
-      render json: articles, serializer: Api::V1::ArticlePreviewSerializer
+      article.save!
+      render json: article, serializer: Api::V1::ArticleSerializer
     end
 
     def updated
       article = current_user.articles.find(params[:id])
       #   # DBに登録できた場合
       article.update!(article_params)
-      render json: article, serializer: Api::V1::ArticlePreviewSerializer
+      render json: article, serializer: Api::V1::ArticleSerializer
     end
 
     def destroy

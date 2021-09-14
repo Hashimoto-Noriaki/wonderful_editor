@@ -46,6 +46,22 @@ module WonderfulEditor
     end
 
     config.api_only = true
+    config.middleware.use ActionDispatch::Flash
+
+    # task 9-1で追記  #追記するか検討
+    # config.session_store :cookie_store, key: "_interslice_session"
+    # config.middleware.use ActionDispatch::Cookies # Required for all session management
+    # config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
     # config.middleware.use ActionDispatch::Flash
+    # config.middleware.insert_before 0, Rack::Cors do
+    # allow do
+    #   origins "*"
+    #   resource "*",
+    #            headers: :any,
+    #            expose: ["access-token", "expiry", "token-type", "uid", "client"],
+    #            methods: [:get, :post, :options, :delete, :put]
+    # end
+    # end
+    # task 9-1で追記ここまで　追記するか検討
   end
 end
