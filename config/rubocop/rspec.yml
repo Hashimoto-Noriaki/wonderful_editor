@@ -72,4 +72,6 @@ RSpec/NestedGroups:
 RSpec/ReturnFromStub:
   Enabled: false
 
-  
+  # context ごとに let! を使い分けたい場合があるため無効に
+RSpec/LetSetup:
+  Enabled: false
