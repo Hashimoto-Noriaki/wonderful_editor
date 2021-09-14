@@ -47,6 +47,7 @@ module WonderfulEditor
 
     config.api_only = true
     config.middleware.use ActionDispatch::Flash
+    
 
     # task 9-1で追記  #追記するか検討
     # config.session_store :cookie_store, key: "_interslice_session"
