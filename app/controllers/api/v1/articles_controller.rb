@@ -6,13 +6,12 @@ module Api::V1
     end
 
     def show
-      article = Article.find_by(params[:id])
+      article = Article.find(params[:id])
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
     def create
-      article = Article.new(article_params)
-      article.save!
+      article = current_user.article.create!(article_params)
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
