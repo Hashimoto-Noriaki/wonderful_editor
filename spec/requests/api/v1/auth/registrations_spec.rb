@@ -7,7 +7,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
     context "パラメーターを送信する時" do
       let(:params) { attributes_for(:user) }
       # binding.pry
-      fit "新規登録できる" do
+      it "新規登録できる" do
         expect { subject }.to change { User.count }.by(1)
         # binding.pry
         expect(response).to have_http_status(:ok)
