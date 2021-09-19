@@ -1,17 +1,17 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Articles", type: :request do
-  describe "GET /Article" do   # index
-    subject { get(api_v1_articles_path) }
+  # describe "GET /Article" do   # index
+  #   subject { get(api_v1_articles_path) }
 
-    let(:article) { create_list(:article, 3) }
-    it "記事一覧が取得できる" do
-      subject
-      # binding.pry
-      JSON.parse(response.body)
-      expect(response).to have_http_status(:ok)
-    end
-  end
+  #   let(:article) { create_list(:article, 3) }
+  #   fit "記事一覧が取得できる" do
+  #     subject
+  #     binding.pry
+  #     JSON.parse(response.body)
+  #     expect(response).to have_http_status(:ok)
+  #   end
+  # end
 
   describe "GET /Articles/:id" do # show
     context "指定したidの記事が存在する時" do
@@ -20,7 +20,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       let(:article) { create(:article) }
       let(:article_id) { article.id }
       it "見たい記事詳細を取得できる" do
-        # expect(response).to have_http_status(:ok)
+        # expect(response).to have_http_status(404)
       end
     end
   end
