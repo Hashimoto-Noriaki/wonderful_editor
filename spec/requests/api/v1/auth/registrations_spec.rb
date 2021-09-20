@@ -32,5 +32,33 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context "名前が正しくない時" do
+      let(:user) { create(:user) }
+      let(:params) { { name: "うううううう" } }
+      it "ログインできない" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["success"]).to be_falsey
+        expect(response.headers["access-token"]).to be_blank
+        expect(response.headers["client"]).to be_blank
+        expect(response.headers["expiry"]).to be_blank
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "emailが正しく入力されていない時" do
+      let(:user) { create(:user) }
+      let(:params) { { email: "fffffffffff@example.com" } }
+      it "ログインできない" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["errors"]).to include("Invalid login credentials. Please try again.")
+        expect(response.headers["access-token"]).to be_blank
+        expect(response.headers["client"]).to be_blank
+        expect(response.headers["expirly"]).to be_blank
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
   end
 end
