@@ -15,17 +15,22 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       end
     end
   end
+
+  # RSpec.describe "Api::V1::Auth::Sessions", type: :request do
+  describe "POST /api/v1/auth/sign_in" do
+    subject { post(api_v1_user_session_path, params: params) }
+
+    context "リクエストをする時" do
+      let(:user) { create(:user) }
+      let(:params) { { name: user.name, email: user.email, password: user.password } }
+      it "ログインできる" do
+        subject
+        JSON.parse(response.body)
+        expect(response.headers["access-token"]).to be_present
+        expect(response.headers["client"]).to be_present
+        expect(response.headers["expiry"]).to be_present
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end
-
-#  describe "POST /api/v1/sign_in" do
-#   subject { post(api_v1_user_registration_path, params: params) }
-#    context "" do
-
-#     it "" do
-
-#     end
-#     end
-
-#   end
-
-# end
