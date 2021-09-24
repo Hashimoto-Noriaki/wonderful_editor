@@ -6,10 +6,10 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
 
     context "パラメーターを送信する時" do
       let(:params) { attributes_for(:user) }
-      # binding.pry
+
       it "新規登録できる" do
         expect { subject }.to change { User.count }.by(1)
-        # binding.pry
+
         expect(response).to have_http_status(:ok)
         JSON.parse(response.body)
       end
@@ -53,6 +53,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       it "ログインできない" do
         subject
         res = JSON.parse(response.body)
+
         expect(res["errors"]).to include("Invalid login credentials. Please try again.")
         expect(response.headers["access-token"]).to be_blank
         expect(response.headers["client"]).to be_blank
