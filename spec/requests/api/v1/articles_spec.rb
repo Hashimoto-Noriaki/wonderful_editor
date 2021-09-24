@@ -5,11 +5,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_articles_path) }
 
     before { create_list(:article, 3) }
-    # binding.pry
 
     it "記事一覧が取得できる" do
       subject
-      binding.pry
+
       res = JSON.parse(response.body)
       expect(res.length).to eq 3
       expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
