@@ -6,12 +6,8 @@ class Api::V1::BaseApiController < ApplicationController
     @current_user ||= User.first
   end
 
-  # def current_user
-  #   @current_user ||= warden.authenticate(scope: :user)
-  # end
-
   # def user_signed_in?
 
   # end
 end
-# end
+#  end
