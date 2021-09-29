@@ -40,8 +40,6 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
   end
 
-  # allow_any_instance_of(WeatherBot).to receive(:twitter_client).and_return(twitter_client_mock)
-
   describe "POST/api/v1/articles" do  # create
     subject { post(api_v1_articles_path, params: params) }
 
