@@ -5,11 +5,5 @@ class Api::V1::BaseApiController < ApplicationController
   def current_user
     @current_user ||= User.first
   end
-
-  # def user_signed_in?
-
-  # end
 end
 #  end
-
-# Hoge.create(name: "中村",content:"掃除当番")
