@@ -63,9 +63,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
     let(:params) { { article: attributes_for(:article) } }
     let(:current_user) { create(:user) }
     let(:article_id) { article.id }
-     let(:article) { create(:article) }
+    let(:article) { create(:article) }
     #  before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
-    fit "任意のユーザーのレコードを更新できる" do
+    it "任意のユーザーのレコードを更新できる" do
       expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
                             change { article.reload.body }.from(article.body).to(params[:article][:body])
       expect(response).to have_http_status(:ok)
