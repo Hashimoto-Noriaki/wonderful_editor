@@ -1,5 +1,7 @@
 module Api::V1
   class ArticlesController < BaseApiController
+    before_action :authenticate_api_v1_user!, except: [:create, :update]
+
     def index
       articles = Article.order(updated_at: :desc)
       render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
@@ -15,7 +17,7 @@ module Api::V1
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
-    def updated
+    def update
       article = current_user.articles.find(params[:id])
       #   # DBに登録できた場合
       article.update!(article_params)
