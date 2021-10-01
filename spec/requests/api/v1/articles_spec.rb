@@ -47,8 +47,6 @@ RSpec.describe "Api::V1::Articles", type: :request do
       let(:params) { { article: attributes_for(:article) } }
       let(:current_user) { create(:user) }
       let(:headers) { current_user.create_new_auth_token }
-      # before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
-
       it "記事のレコードが作成される" do
         expect { subject }.to change { Article.count }.by(1)
         res = JSON.parse(response.body)
@@ -59,5 +57,18 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
   end
 
-  
+  describe "PATCH/api/v1/articles/:id" do # update
+    subject { patch(api_v1_article_path(article.id), params: params) }
+
+    let(:params) { { article: attributes_for(:article) } }
+    let(:current_user) { create(:user) }
+    let(:article_id) { article.id }
+    let(:article) { create(:article) }
+    #  before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+    it "任意のユーザーのレコードを更新できる" do
+      expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
+                            change { article.reload.body }.from(article.body).to(params[:article][:body])
+      expect(response).to have_http_status(:ok)
+    end
+  end
 end
