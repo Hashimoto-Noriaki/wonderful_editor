@@ -58,27 +58,33 @@ RSpec.describe "Api::V1::Articles", type: :request do
   end
 
   describe "PATCH/api/v1/articles/:id" do # update
-    subject { patch(api_v1_article_path(article.id), params: params) }
+    subject { patch(api_v1_article_path(article.id), params: params, headers: headers) }
 
     let(:params) { { article: attributes_for(:article) } }
     let(:current_user) { create(:user) }
-    let(:article_id) { article.id }
-    let(:article) { create(:article) }
-    #  before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
-    it "任意の記事のレコードを更新できる" do
-      expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
-                            change { article.reload.body }.from(article.body).to(params[:article][:body])
-      expect(response).to have_http_status(:ok)
+    #  let(:article_id) { article.id }
+    #  let(:article) { create(:article) }
+    let(:headers) { current_user.create_new_auth_token }
+    context "記事を更新する時" do
+      let(:article) { create(:article, user: current_user) }
+      #  before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
+      it "任意の記事のレコードを更新できる" do
+        expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
+                              change { article.reload.body }.from(article.body).to(params[:article][:body])
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 
   describe "DELETE/api/v1/article" do
-    subject { delete(api_v1_article_path(article.id)) }
+    subject { delete(api_v1_article_path(article_id), headers: headers) }
 
     let(:params) { { article: attributes_for(:article) } }
     let(:current_user) { create(:user) }
     let(:article_id) { article.id }
-    let!(:article) { create(:article) }
+    # let!(:article) { create(:article) }
+    let(:headers) { current_user.create_new_auth_token }
+    let!(:article) { create(:article, user: current_user) }
     it "任意の記事のレコードを削除できる" do
       expect { subject }.to change { Article.count }.by(-1)
       expect(response).to have_http_status(:no_content)
