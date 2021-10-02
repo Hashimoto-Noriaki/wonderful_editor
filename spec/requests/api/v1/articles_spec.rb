@@ -82,7 +82,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
     # let!(:article) { create(:article) }
     let(:headers) { current_user.create_new_auth_token }
     let!(:article) { create(:article, user: current_user) }
-    fit "任意の記事のレコードを削除できる" do
+    it "任意の記事のレコードを削除できる" do
       expect { subject }.to change { Article.count }.by(-1)
       expect(response).to have_http_status(:no_content)
     end
