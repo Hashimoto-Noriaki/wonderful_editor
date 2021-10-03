@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text
+#  status     :string           default("draft")
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -18,6 +19,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Article < ApplicationRecord
+  # enum status: { draft: 0, published: 1 }
+  enum status: { draft: "draft", published: "published" }
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :article_likes, dependent: :destroy
