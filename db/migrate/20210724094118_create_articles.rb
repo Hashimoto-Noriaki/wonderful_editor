@@ -9,3 +9,7 @@ class CreateArticles < ActiveRecord::Migration[6.0]
     end
   end
 end
+
+# カラム追加コマンド
+# $ rails  g migration   add_カラム名_to_テーブル名　カラム名：型
+# $ rails  g migration   add_mail_to_users mail:string
