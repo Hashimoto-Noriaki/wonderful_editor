@@ -20,7 +20,7 @@
 #
 class Article < ApplicationRecord
   # enum status: { draft: 0, published: 1 }
-  enum status: { draft: "draft", published: "published" }
+  enum status: { draft: "draft", published: "published", part_publish: "part_publish" }
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :article_likes, dependent: :destroy

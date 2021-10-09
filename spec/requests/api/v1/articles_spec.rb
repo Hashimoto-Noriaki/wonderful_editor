@@ -4,14 +4,18 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "GET /article" do   # index
     subject { get(api_v1_articles_path) }
 
-    before { create_list(:article, 3) }
-
-    it "記事一覧が取得できる" do
+    let!(:article1) { create(:article, :published, updated_at: 1.days.ago) }
+    let!(:article2) { create(:article, :published, updated_at: 2.days.ago) }
+    let!(:article3) { create(:article, :published) }
+    # before{create(:article,:draft)}
+    # before { create_list(:article, 3)}
+    it "公開状態の記事一覧が取得できる" do
       subject
-
       res = JSON.parse(response.body)
       expect(res.length).to eq 3
+      # binding.pry
       expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
+      expect(res[0]["user"].keys).to eq ["id", "name", "email"]
       expect(response).to have_http_status(:ok)
     end
   end
@@ -22,13 +26,18 @@ RSpec.describe "Api::V1::Articles", type: :request do
     context "指定したidの記事が存在する時" do
       let(:article) { create(:article) }
       let(:article_id) { article.id }
-      it "見たい記事詳細を取得できる" do
-        subject
-        res = JSON.parse(response.body)
-        expect(res["title"]).to eq article.title
-        expect(res["body"]).to eq article.body
-        expect(res["user"]["id"]).to eq article.user.id
-        expect(response).to have_http_status(:ok)
+
+      context "対象の記事が公開中の時" do
+        let(:article) { create(:article, :published) }
+
+        it "見たい記事詳細を取得できる" do
+          subject
+          res = JSON.parse(response.body)
+          expect(res["title"]).to eq article.title
+          expect(res["body"]).to eq article.body
+          expect(res["user"]["id"]).to eq article.user.id
+          expect(response).to have_http_status(:ok)
+        end
       end
     end
 

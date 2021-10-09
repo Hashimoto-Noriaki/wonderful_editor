@@ -35,8 +35,23 @@ RSpec.describe Article, type: :model do
 
     it "下書き状態の記事が作成できる" do
       expect(article).to be_valid
-
       expect(article.status).to eq "draft"
+    end
+  end
+
+  context "statusが下書き状態の時" do
+    let(:article) { build(:article, :draft) }
+    it "記事を下書き状態で作成できる" do
+      expect(article).to be_valid
+      expect(article.status).to eq "draft"
+    end
+  end
+
+  context "stausが公開状態の時" do
+    let(:article) { build(:article, :published) }
+    it "記事を公開状態で作成できる" do
+      expect(article.status).to be_present
+      expect(article.status).to eq "published"
     end
   end
 end
