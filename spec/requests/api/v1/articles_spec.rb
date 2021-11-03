@@ -13,7 +13,6 @@ RSpec.describe "Api::V1::Articles", type: :request do
       subject
       res = JSON.parse(response.body)
       expect(res.length).to eq 3
-      # binding.pry
       expect(res[0].keys).to eq ["id", "title", "updated_at", "user"]
       expect(res[0]["user"].keys).to eq ["id", "name", "email"]
       expect(response).to have_http_status(:ok)
@@ -29,13 +28,13 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
       context "対象の記事が公開中の時" do
         let(:article) { create(:article, :published) }
-
         it "見たい記事詳細を取得できる" do
           subject
           res = JSON.parse(response.body)
           expect(res["title"]).to eq article.title
           expect(res["body"]).to eq article.body
           expect(res["user"]["id"]).to eq article.user.id
+          expect(res.length).to eq 6
           expect(response).to have_http_status(:ok)
         end
       end

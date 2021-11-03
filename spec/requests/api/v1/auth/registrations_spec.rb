@@ -29,6 +29,10 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
         expect(response.headers["access-token"]).to be_present
         expect(response.headers["client"]).to be_present
         expect(response.headers["expiry"]).to be_present
+        expect(response.headers["uid"]).to be_present
+        expect(response.headers["expiry"]).to be_present
+        expect(response.headers["allow_password_change"]).to be_blank
+        expect(response.headers["image"]).to be_blank
         expect(response).to have_http_status(:ok)
       end
     end
@@ -53,11 +57,12 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       it "ログインできない" do
         subject
         res = JSON.parse(response.body)
-
+        expect(res["success"]).to be_falsey
         expect(res["errors"]).to include("Invalid login credentials. Please try again.")
         expect(response.headers["access-token"]).to be_blank
         expect(response.headers["client"]).to be_blank
         expect(response.headers["expirly"]).to be_blank
+        expect(response.headers["Cache-Control"]).to be_present
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -75,6 +80,22 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
         res = JSON.parse(response.body)
         expect(res["success"]).to be_truthy
         expect(response).to have_http_status(:ok)
+      end
+    end
+
+    # 練習
+    context "謝った情報を送信した時" do
+      let(:user) { create(:user) }
+      let!(:headers) {
+        { "access-token" => "jdsjdsjvdsvd", "client" => "hdishichds",
+          "uid" => "kszhxdhscsiduchisdh" }
+      }
+      it "ログアウトできない" do
+        subject
+        res = JSON.parse(response.body)
+        expect(res["errors"]).to include "User was not found or was not logged in."
+        expect(res["success"]).to be_falsey
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
